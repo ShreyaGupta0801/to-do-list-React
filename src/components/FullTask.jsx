@@ -47,7 +47,7 @@ export default class FullTask extends Component {
   };
  
   componentDidMount() {
-    // document.querySelector(".popup").style.display = "none";
+    
     if (typeof this.props.history.location.state === "undefined") {
       this.props.history.push("/unauthorized");
       return;
