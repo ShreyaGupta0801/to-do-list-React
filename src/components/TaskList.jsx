@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TaskService from "../Services/TaskService";
+import TaskService from "../services/TaskService";
 
 export default class TaskList extends Component {
   constructor(props) {
@@ -21,12 +21,9 @@ export default class TaskList extends Component {
     this.handleLogOutClick = this.handleLogOutClick.bind(this);
   }
   componentDidMount() {
-   
     this.setState({ newTaskText: "" });
-    
     if (typeof this.props.history.location.state === "undefined") {
       this.props.history.push("/unauthorized");
-
       return;
     }
     this.setState({ token: this.props.history.location.state.token });
@@ -38,23 +35,19 @@ export default class TaskList extends Component {
         this.setState({ tasksList: res.data });
         console.log(res.data)
       }
-    );
-    
+    ); 
   }
   getDate() {
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1;
     var yyyy = today.getFullYear();
-
     if (dd < 10) {
       dd = "0" + dd;
     }
-
     if (mm < 10) {
       mm = "0" + mm;
     }
-
     today = yyyy + "-" + mm + "-" + dd;
     return today;
   }
@@ -62,22 +55,18 @@ export default class TaskList extends Component {
     this.setState({ newTaskText: e.target.value });
   }
   handleNewTaskTargetedDate(e) {
-    console.log("picked date", e.target.value);
     this.setState({ newTaskTargetedDate: e.target.value });
   }
   handleTaskToggle(e) {
     var taskId = e.currentTarget.parentNode.getAttribute("id");
-    console.log("done called");
     TaskService.toggleTaskDone(taskId)
       .then((res) => {
         TaskService.getTasksByUser(this.props.history.location.state)
           .then((getRes) => {
             console.log("tasklist", ...getRes.data);
             this.setState({ tasksList: getRes.data });
-          })
-          
-      })
-      
+          })  
+      }) 
   }
   addTask(e) {
     document.querySelector("#taskInput").value = "";
@@ -112,10 +101,7 @@ export default class TaskList extends Component {
           tasksList: this.state.tasksList.filter((task) => task.id !== taskId),
         });
       })
-      
   }
-
- 
   handleLogOutClick(e) {
     this.props.history.push("/");
     window.history.replaceState({}, document.title);
@@ -142,17 +128,12 @@ export default class TaskList extends Component {
           <button id="addBtn" style={TableStyle.addBtn}  onClick={this.addTask}>
               Add
           </button>
-          
         </div>
-      
-    
         {this.state.tasksList.map((tasks, index) => {
           return (
             <div id={tasks.id} key={tasks.id} style={TableStyle.note}>
               <p style={TableStyle.id}>{index + 1}</p>
               <p style={tasks.is_done ? TableStyle.CrossMessage : TableStyle.message}>{tasks.message}</p>
-               
-              
               <button
                 onClick={this.handleTaskToggle}
                 style={

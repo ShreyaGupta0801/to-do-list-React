@@ -1,6 +1,6 @@
 import React, { Component } from "react";
- import "../Styles/home.css";
-import Bg from "../Resources/images/unsplash2.jpg";
+ import "../styles/home.css";
+import Bg from "../resources/images/Home.jpg";
 import {Link} from "react-router-dom";
 import { Button } from "react-bootstrap";
 class Home extends Component {
@@ -22,8 +22,7 @@ class Home extends Component {
               <Button>
                  SignUp
               </Button>
-            </Link>
-            
+            </Link>  
           </div>
         </div>
       </div>

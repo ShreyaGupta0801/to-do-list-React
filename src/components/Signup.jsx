@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import UserService from "../Services/UserService";
+import UserService from "../services/UserService";
 import Alert from "react-bootstrap/Alert";
 
 class Signup extends Component {
@@ -35,7 +35,6 @@ class Signup extends Component {
         this.setState({ isAlertShow: true });
         return false;
     }
-    
     saveUser = (event) => {
         event.preventDefault();
         let User = {
@@ -44,16 +43,12 @@ class Signup extends Component {
           password: this.state.password,
           
         };
-      
-        
-       
         var isConfirmPasswordValid = this.confirmPasswordValidator(
           this.state.confirmPassword
         );
         if (!isConfirmPasswordValid) {
           return;
         }
-    
         console.log("User => " + JSON.stringify(User));
         this.setState({ alertMessage: "Account Created Successfully" });
         this.setState({ isAlertShow: true });
@@ -64,8 +59,6 @@ class Signup extends Component {
           });
         }, 3000);
     };
-    
-
     render() {
         const { history } = this.props;
         return (
@@ -91,8 +84,6 @@ class Signup extends Component {
                                     </div>
                                     <div className="btn btn-success"onClick={this.saveUser}style={{ marginTop: "15px" }}> Save
                                     </div>
-                                    
-
                                 </form>
                                 {this.state.isAlertShow && (
                                     <div

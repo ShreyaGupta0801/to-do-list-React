@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TaskService from "../Services/TaskService";
+import TaskService from "../services/TaskService";
 
 export default class FullTask extends Component {
   constructor(props) {
@@ -11,13 +11,11 @@ export default class FullTask extends Component {
         taskTargetedDate: this.props.history.location.state.targeted_date,
         alertMessage: "",
     };
-    
     this.changeMessage = this.changeMessage.bind(this);
     this.changeTargetedDate = this.changeTargetedDate.bind(this);
     this.updateTask = this.updateTask.bind(this);
    
   }
- 
   changeMessage = (e) => {
     this.setState({ taskMessage: e.target.value });
   };
@@ -26,13 +24,11 @@ export default class FullTask extends Component {
   };
   updateTask = (e) => {
     console.log("user" , this.props.history.location.state);
-
     const updatedTaskObj = {
       message: this.state.taskMessage,
       targeted_date: this.state.taskTargetedDate,
       user: this.state.taskObj.user,
     };
-    
     TaskService.updateTask(this.state.taskObj.id, updatedTaskObj)
       .then((res) => {
         this.setState({
@@ -43,11 +39,8 @@ export default class FullTask extends Component {
           this.props.history.goBack();
         }, 2000);
       })
-      
   };
- 
-  componentDidMount() {
-    
+   componentDidMount() {
     if (typeof this.props.history.location.state === "undefined") {
       this.props.history.push("/unauthorized");
       return;
@@ -58,25 +51,18 @@ export default class FullTask extends Component {
       .then((res) => {
         this.setState({ tasksList: res.data.tasksData });
       })
-     
   }
-
-  
-
   render() {
     return (
       
       <div style={TableStyle.card}>
         <div style= {TableStyle.header}className="card-body">
-          <h1 >Edit Task </h1>
-          
-   
-          <div className="card-body">
-            <form action="" style={TableStyle.FormStyle}>
+          <h1 style={{marginLeft : "0px"}} >Edit Task</h1>
+          <div className="card-body" style={{marginRight : "50px"}}>
+            <form action=""  style={{marginRight : "50px"}}>
                 <div className="form-group" style={TableStyle.formGroup} >
                     <h5 >Message</h5>
                     <input
-                      
                       type="text"
                       placeholder="message"
                       className="form-control"
@@ -87,7 +73,6 @@ export default class FullTask extends Component {
                 <div className="form-group" >
                     <label >targeted date</label>
                     <input
-                      
                       type="date"
                       placeholder="description"
                       className="form-control"
@@ -98,9 +83,7 @@ export default class FullTask extends Component {
                 <div style= {TableStyle.AddNote }>
                     <div
                       className="btn btn-success"
-                      
                       onClick={this.updateNote}
-                      
                     >
                       Update
                     </div>
@@ -108,9 +91,6 @@ export default class FullTask extends Component {
             </form>
          </div>
         </div>
-        
-          );
-        
       </div>
     );
   }

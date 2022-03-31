@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { useHistory } from "react-router-dom";
 import { Alert } from "react-bootstrap";
-import UserService from "../Services/UserService";
+import UserService from "../services/UserService";
 export default class Login extends Component {
   constructor(props) {
     super(props);
     console.log(props);
     this.state = {
-      username: "Shreya",
-      password: "Shreya@123",
+      username: "",
+      password: "",
       isAlertShow: true,
       alertType: "danger",
     };
@@ -29,8 +29,6 @@ export default class Login extends Component {
   changeAlertSuccess = (e) => {
     document.querySelector(".alertMessage").style.backgroundColor = "green";
   };
-
-  
   loginUser = (e) => {
     e.preventDefault();
     let User = {
@@ -92,7 +90,6 @@ export default class Login extends Component {
                     >
                       Cancel
                     </div>
-                  
                 </div>
               </form>
               {this.state.isAlertShow && (
